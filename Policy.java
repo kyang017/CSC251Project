@@ -30,8 +30,13 @@ public class Policy
    /**
       Constructor that accepts arguments for policy
       @param num The policy number
-      @param
-      @param
+      @param proName The provider's name
+      @param fName The policyholder's first name
+      @param lName The policyholder's last name
+      @param age The policyholder's age
+      @param status The policyholder's smoking status
+      @param w The policyholder's weight
+      @param h The policyholder's height
    */
    public Policy(int num, String proName, String fName, String lName, int age,
                  String status, double w, double h)
@@ -66,7 +71,7 @@ public class Policy
    
    /**
       Mutator (setter) method
-      @param name The provider's name
+      @param proName The provider's name
    */
    public void setProvidersName(String proName)
    {
