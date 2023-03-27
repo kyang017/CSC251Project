@@ -72,7 +72,7 @@ public class Project_Kasumi_Yang
       System.out.print("\nPolicyholder's Smoking Status: " + p.getSmokingStatus());
       System.out.print("\nPolicyholder's Height: " + p.getHeight() + " inches");
       System.out.print("\nPolicyholder's Weight: " + p.getWeight() + " pounds");
-      System.out.printf("\nPolicyholder's BMI: %,.2f\n", testBMI);
-      System.out.printf("\nPolicy Price: $%,.2f\n", p.getInsurancePrice(testBMI, testAge, testStatus));
+      System.out.printf("\nPolicyholder's BMI: %,.2f", testBMI);
+      System.out.printf("\nPolicy Price: $%,.2f", p.getInsurancePrice(testBMI, testAge, testStatus));
    }
 }
