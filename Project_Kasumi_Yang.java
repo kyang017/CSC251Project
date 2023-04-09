@@ -59,9 +59,7 @@ public class Project_Kasumi_Yang
       */     
       Policy p = new Policy(testNum, testProName, testFName, testLName,
                            testAge, testStatus, testHeight, testWeight);
-      
-      double testBMI = p.getPolicyHolderBMI(testWeight, testHeight);
-                           
+                                 
       //Get data and display it
       System.out.println();
       System.out.print("\nPolicy Number: " + p.getPolicyNumber());
@@ -72,7 +70,7 @@ public class Project_Kasumi_Yang
       System.out.print("\nPolicyholder's Smoking Status: " + p.getSmokingStatus());
       System.out.print("\nPolicyholder's Height: " + p.getHeight() + " inches");
       System.out.print("\nPolicyholder's Weight: " + p.getWeight() + " pounds");
-      System.out.printf("\nPolicyholder's BMI: %,.2f", testBMI);
-      System.out.printf("\nPolicy Price: $%,.2f", p.getInsurancePrice(testBMI, testAge, testStatus));
+      System.out.printf("\nPolicyholder's BMI: %,.2f", p.getPolicyHolderBMI());
+      System.out.printf("\nPolicy Price: $%,.2f", p.getInsurancePrice());
    }
 }
