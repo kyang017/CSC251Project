@@ -11,8 +11,8 @@ public class Policy
    private String lastName;
    private int policyAge;
    private String smokingStatus;
-   private double weight;
    private double height;
+   private double weight;
    
    //no-arg constructors
    public Policy()
@@ -23,8 +23,8 @@ public class Policy
       lastName = " ";
       policyAge = 0;
       smokingStatus = " ";
-      weight = 0.0;
       height = 0.0;
+      weight = 0.0;
    }
    
    /**
@@ -35,11 +35,11 @@ public class Policy
       @param lName The policyholder's last name
       @param age The policyholder's age
       @param status The policyholder's smoking status
-      @param w The policyholder's weight
       @param h The policyholder's height
+      @param w The policyholder's weight
    */
    public Policy(int num, String proName, String fName, String lName, int age,
-                 String status, double w, double h)
+                 String status, double h, double w)
    {
       policyNum = num;
       providerName = proName;
@@ -47,8 +47,8 @@ public class Policy
       lastName = lName;
       policyAge = age;
       smokingStatus = status;
-      weight = w;
       height = h;
+      weight = w;
    }
    
    /**
@@ -158,6 +158,24 @@ public class Policy
    {
       return smokingStatus;
    }     
+      
+   /**
+      Mutator (setter) method
+      @param h The policyholder's height
+   */
+   public void setHeight(double h)
+   {
+      height = h;
+   }
+   
+   /**
+      Accessor (getter) method
+      @return The policyholder's height
+   */    
+   public double getHeight()
+   {
+      return height;
+   }  
    
    /**
       Mutator (setter) method
@@ -176,34 +194,14 @@ public class Policy
    {
       return weight;
    } 
-   
-   /**
-      Mutator (setter) method
-      @param h The policyholder's height
-   */
-   public void setHeight(double h)
-   {
-      height = h;
-   }
-   
-   /**
-      Accessor (getter) method
-      @return The policyholder's height
-   */    
-   public double getHeight()
-   {
-      return height;
-   }  
      
    /**
       Method for calculating BMI of policyholder
       @return The policyholder's BMI
    */
-   public double getPolicyHolderBMI(double weight, double height)
+   public double getPolicyHolderBMI()
    {
-      double bmi;
-      bmi = (weight * 703) / Math.pow(height, 2);
-      return bmi;
+      return (getWeight() * 703) / Math.pow(getHeight(), 2);
    }
    
    /**
@@ -211,7 +209,7 @@ public class Policy
       @return The price of insurance policy
    */
    
-   public double getInsurancePrice(double bmi, int policyAge, String smokingStatus)
+   public double getInsurancePrice()
    {
       final double BASE_FEE = 600.00; //Use CONSTANTS for base fee
       double totalPrice = 0.00; //Declare and initialize
@@ -220,21 +218,21 @@ public class Policy
       double additionalFee3 = 0.00;
       
       //if statement for policy age fee
-      if (policyAge > 50)
+      if (getPolicyAge() > 50)
       {
          additionalFee1 = 75.00;
       }
       
       //if statement for smoking status fee
-      if (smokingStatus.equalsIgnoreCase("smoker"))
+      if (getSmokingStatus().equalsIgnoreCase("smoker"))
       {  
          additionalFee2 = 100.00;
       }
       
       //if statement for bmi fee
-      if (bmi > 35)
+      if (getPolicyHolderBMI() > 35)
       {
-         additionalFee3 = (bmi - 35) * 20;
+         additionalFee3 = (getPolicyHolderBMI() - 35) * 20;
       }
       
       //Calculate total
