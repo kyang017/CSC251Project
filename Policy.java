@@ -5,7 +5,7 @@ public class Policy
       first and last name, policyholder's age, policyholder's smoking status,
       policyholder's weight (in pounds) and height (in inches)
    */
-   private int policyNum;
+   private String policyNum;
    private String providerName;
    private String firstName;
    private String lastName;
@@ -17,7 +17,7 @@ public class Policy
    //no-arg constructors
    public Policy()
    {
-      policyNum = 0;
+      policyNum = " ";
       providerName = " ";
       firstName = " ";
       lastName = " ";
@@ -38,7 +38,7 @@ public class Policy
       @param h The policyholder's height
       @param w The policyholder's weight
    */
-   public Policy(int num, String proName, String fName, String lName, int age,
+   public Policy(String num, String proName, String fName, String lName, int age,
                  String status, double h, double w)
    {
       policyNum = num;
@@ -55,7 +55,7 @@ public class Policy
       Mutator (setter) method
       @param num The policy number
    */
-   public void setPolicyNumber(int num)
+   public void setPolicyNumber(String num)
    {
       policyNum = num;
    }
@@ -64,7 +64,7 @@ public class Policy
       Accessor (getter) method
       @return The policy number
    */    
-   public int getPolicyNumber()
+   public String getPolicyNumber()
    {
       return policyNum;
    } 
