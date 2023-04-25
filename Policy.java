@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Policy
 {
    /**
@@ -5,57 +7,50 @@ public class Policy
       first and last name, policyholder's age, policyholder's smoking status,
       policyholder's weight (in pounds) and height (in inches)
    */
-   private int policyNum;
+   private String policyNum;
    private String providerName;
-   private String firstName;
-   private String lastName;
-   private int policyAge;
+   private PolicyHolder policyHolder;
    private String smokingStatus;
    private double height;
    private double weight;
+   private double insurancePrice;
    
-   //no-arg constructors
-   public Policy()
-   {
-      policyNum = 0;
-      providerName = " ";
-      firstName = " ";
-      lastName = " ";
-      policyAge = 0;
-      smokingStatus = " ";
-      height = 0.0;
-      weight = 0.0;
-   }
+   private static int numPolicy = 0;
+   private static int totalSmokers = 0;
+   private static int totalNonSmokers = 0;
    
    /**
       Constructor that accepts arguments for policy
       @param num The policy number
       @param proName The provider's name
-      @param fName The policyholder's first name
-      @param lName The policyholder's last name
-      @param age The policyholder's age
-      @param status The policyholder's smoking status
-      @param h The policyholder's height
-      @param w The policyholder's weight
-   */
-   public Policy(int num, String proName, String fName, String lName, int age,
-                 String status, double h, double w)
+      @param policyHolder The policy holder
+      @param insurancePrice The insurance price
+   */ 
+     
+   public Policy(int policyNum, String providerName, PolicyHolder policyHolder, double insurancePrice)
    {
-      policyNum = num;
-      providerName = proName;
-      firstName = fName;
-      lastName = lName;
-      policyAge = age;
-      smokingStatus = status;
-      height = h;
-      weight = w;
-   }
+      policyNum = policyNum;
+      providerName = providerName;
+      policyHolder = policyHolder;
+      insurancePrice = insurancePrice;
+      
+      numPolicy++;
+      
+      if (policyHolder.smokingStatus)
+      {
+         totalSmokers++;
+      }
+      else
+      {
+         totalNonSmokers++;
+      }     
+   } 
    
    /**
       Mutator (setter) method
       @param num The policy number
    */
-   public void setPolicyNumber(int num)
+   public void setPolicyNumber(String num)
    {
       policyNum = num;
    }
@@ -64,7 +59,7 @@ public class Policy
       Accessor (getter) method
       @return The policy number
    */    
-   public int getPolicyNumber()
+   public String getPolicyNumber()
    {
       return policyNum;
    } 
@@ -87,158 +82,84 @@ public class Policy
       return providerName;
    }   
    
-   /**
+    /**
       Mutator (setter) method
-      @param fName The policyholder's first name
+      @param policyHolder The policy holder
    */
-   public void setFirstName(String fName)
+   public void setPolicyHolder()
    {
-      firstName = fName;
+      PolicyHolder policyHolder;
    }
    
    /**
       Accessor (getter) method
-      @return The policyholder's first name
+      @return The policy holder
    */    
-   public String getFirstName()
+   public PolicyHolder getPolicyHolder()
    {
-      return firstName;
-   }      
-   
+      return policyHolder;
+   }   
+    
    /**
       Mutator (setter) method
-      @param lName The policyholder's last name
+      @param numPolicy The number of policies
    */
-   public void setLastName(String lName)
+   public static void setNumPolicy(int numPolicy)
    {
-      lastName = lName;
+      Policy.numPolicy = numPolicy;
    }
    
    /**
       Accessor (getter) method
-      @return The policyholder's last name
+      @return The number of policies
    */    
-   public String getLastName()
+   public static int getNumPolicy()
    {
-      return lastName;
-   }     
+      return numPolicy;
+   }    
    
    /**
       Mutator (setter) method
-      @param age The policyholder's age
+      @param totalSmokers The number of smokers
    */
-   public void setPolicyAge(int age)
+   public static void setTotalSmokers(int totalSmokers)
    {
-      policyAge = age;
+      totalSmokers = totalSmokers;
    }
    
    /**
       Accessor (getter) method
-      @return The policyholder's age
+      @return The number of smokers
    */    
-   public int getPolicyAge()
+   public static int getTotalSmokers()
    {
-      return policyAge;
-   } 
+      return totalSmokers;
+   }    
    
    /**
       Mutator (setter) method
-      @param status The policyholder's smoking status
+      @param totalNonSmokers The number of non-smokers
    */
-   public void setSmokingStatus(String status)
+   public static void setTotalNonSmokers(String totalNonSmokers)
    {
-      smokingStatus = status;
+      totalNonSmokers = totalNonSmokers;
    }
    
    /**
       Accessor (getter) method
-      @return The policyholder's smoking status
+      @return The number of non-smokers
    */    
-   public String getSmokingStatus()
+   public static int getTotalNonSmokers()
    {
-      return smokingStatus;
-   }     
-      
-   /**
-      Mutator (setter) method
-      @param h The policyholder's height
-   */
-   public void setHeight(double h)
-   {
-      height = h;
-   }
-   
-   /**
-      Accessor (getter) method
-      @return The policyholder's height
-   */    
-   public double getHeight()
-   {
-      return height;
+      return totalNonSmokers;
    }  
    
-   /**
-      Mutator (setter) method
-      @param w The policyholder's weight
-   */
-   public void setWeight(double w)
-   {
-      weight = w;
-   }
-   
-   /**
-      Accessor (getter) method
-      @return The policyholder's weight
-   */    
-   public double getWeight()
-   {
-      return weight;
-   } 
-     
-   /**
-      Method for calculating BMI of policyholder
-      @return The policyholder's BMI
-   */
-   public double getPolicyHolderBMI()
-   {
-      return (getWeight() * 703) / Math.pow(getHeight(), 2);
-   }
-   
-   /**
-      Method for calculating price of insurance policy
-      @return The price of insurance policy
-   */
-   
-   public double getInsurancePrice()
-   {
-      final double BASE_FEE = 600.00; //Use CONSTANTS for base fee
-      double totalPrice = 0.00; //Declare and initialize
-      double additionalFee1 = 0.00;
-      double additionalFee2 = 0.00;
-      double additionalFee3 = 0.00;
+    public String toString()
+    {
+        return "Policy Number: " + policyNum + "\n" +
+                "Provider Name: " + providerName + "\n" +
+                policyHolder.toString() + "\n" +
+                "Policy Price: $" + insurancePrice;
+    }   
       
-      //if statement for policy age fee
-      if (getPolicyAge() > 50)
-      {
-         additionalFee1 = 75.00;
-      }
-      
-      //if statement for smoking status fee
-      if (getSmokingStatus().equalsIgnoreCase("smoker"))
-      {  
-         additionalFee2 = 100.00;
-      }
-      
-      //if statement for bmi fee
-      if (getPolicyHolderBMI() > 35)
-      {
-         additionalFee3 = (getPolicyHolderBMI() - 35) * 20;
-      }
-      
-      //Calculate total
-      totalPrice = BASE_FEE + additionalFee1 + additionalFee2 + additionalFee3;
-      
-      return totalPrice;    
-   }
-
 } //End of public class

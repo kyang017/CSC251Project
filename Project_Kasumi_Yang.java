@@ -1,16 +1,14 @@
-import java.io.*;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 
 public class Project_Kasumi_Yang
 {
     public static void main(String[] args) throws IOException
-    {
-        
-        File file = new File("PolicyInformation.txt");
-        Scanner inputFile = new Scanner(file);
-        
+    {   
         //Declare variables
-        int testNum;
+        String testNum;
         String testProName;
         String testFName;
         String testLName;
@@ -18,58 +16,60 @@ public class Project_Kasumi_Yang
         String testStatus;
         double testHeight;
         double testWeight;
-        double bmi;
-        double policyPrice = 600.00;
         
         int smokerTotal = 0;
-        int nonSmokerTotal = 0;
         
+        //ArrayList to store Policy objects
+        ArrayList<Policy> policyList = new ArrayList<Policy>();
+        
+        PolicyHolder policyHolder = new PolicyHolder();
+      
+        //create and open the file
+        File file = new File("PolicyInformation.txt");
+        Scanner inputFile = new Scanner(file);     
+           
         //while loop
         while(inputFile.hasNext())
         {
-            testNum = inputFile.nextInt();
+            testNum = inputFile.nextLine();
             inputFile.nextLine();
             testProName = inputFile.nextLine();
             testFName = inputFile.nextLine();
             testLName = inputFile.nextLine();
-            testAge = inputFile.nextInt();
-            inputFile.nextLine();
+            
+            if (inputFile.hasNextLine())
+            {
+                testAge = inputFile.nextInt();
+                inputFile.nextLine(); //the newline character
+            }
+            
             testStatus = inputFile.nextLine();
             testHeight = inputFile.nextDouble();
             testWeight = inputFile.nextDouble();
-            bmi = getPolicyHolderBMI(testHeight, testWeight);
+               
+            if(inputFile.hasNext())
+               inputFile.nextLine();
+            if(inputFile.hasNext())
+               inputFile.nextLine();
+                        
+            //create a Policy object and add it to our ArrayList
+            Policy policy = new Policy(testNum, testProName, testFName, testLName, testAge, testStatus, testHeight, testWeight);
+            policyList.add(policy);
             
-            //if else statement for finding how many are non-smokers or smokers
-            if (testStatus.equalsIgnoreCase("smoker"))
-            {
-                smokerTotal++;
-            }
-            else
-            {
-                nonSmokerTotal++;
-            }
-            
-            //display information
-            System.out.println("\nPolicy Number: " + testNum);
-            System.out.println("Provider Name: " + testProName);
-            System.out.println("Policyholder's First Name: " + testFName);
-            System.out.println("Policyholder's Last Name: " + testLName);
-            System.out.println("Policyholder's Age: " + testAge);
-            System.out.println("Policyholder's Smoking Status (smoker/non-smoker): " + testStatus);
-            System.out.println("Policyholder's Height: " + testHeight + " inches");
-            System.out.println("Policyholder's Weight: " + testWeight + " pounds");
-            System.out.printf("Policyholder's BMI: %.2f%n", bmi);
-            System.out.printf("Policy Price: $%.2f%n", policyPrice); 
         } //end of while loop
-
-        inputFile.close();
-
-        System.out.println("\nThe number of policies with a smoker is: " + smokerTotal);
-        System.out.println("The number of policies with a non-smoker is: " + nonSmokerTotal);
+        
+         //print out information about each Policy object
+         for(Policy policy : policyList)
+         { 
+            //display information about the Policy
+            System.out.print(policy.toString() );
+            System.out.println();
+            System.out.print(policyHolder.toString() );             
+         }
+         
+         //the number of policies, smokers and non-smokers
+         System.out.println("The number of policies with a smoker is: " + smokerTotal);
+         System.out.println("The number of policies with a non-smoker is: " + (policyList.size() - smokerTotal) );        
     }
     
-    public static double getPolicyHolderBMI(double height, double weight)
-    {
-        return (weight * 703) / Math.pow(height, 2);
-    }
 }
